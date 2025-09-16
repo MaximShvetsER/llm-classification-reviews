@@ -71,4 +71,4 @@ submission = pd.DataFrame({
 })
 submission.to_csv("submission.csv", index=False, encoding="utf-8-sig")
 
-print("\nФайл submission.csv сохранён!")
+print("файл сохранён")
