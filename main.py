@@ -61,3 +61,14 @@ clf.fit(X_train, y_train)
 y_pred = clf.predict(X_val)
 print("Weighted F1:", f1_score(y_val, y_pred, average="weighted"))
 print("\nОтчёт по классам:\n", classification_report(y_val, y_pred))
+
+X_test = model_emb.encode(test_df["text"].tolist(), batch_size=64, show_progress_bar=True)
+test_preds = clf.predict(X_test)
+
+#Сохранение файла
+submission = pd.DataFrame({
+    "category": test_preds
+})
+submission.to_csv("submission.csv", index=False, encoding="utf-8-sig")
+
+print("\nФайл submission.csv сохранён!")
