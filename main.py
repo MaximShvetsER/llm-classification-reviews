@@ -24,7 +24,7 @@ def keyword_label(text):
     if re.search(r"ботинк|сапог|кроссовк|обувь|туфл", text):
         return "обувь"
     if re.search(r"чайник|пылесос|микроволн|холодильник|блендер", text):
-        return "бытовая техника"
+        return "быт техника"
     if re.search(r"телефон|смартфон|ноутбук|планшет|наушник", text):
         return "электроника"
     if re.search(r"тарелк|стакан|ложк|вилк|кастрюл|сковород", text):
@@ -53,3 +53,11 @@ else:
     X_train, X_val, y_train, y_val = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
     )
+
+clf = LogisticRegression(max_iter=2000, class_weight="balanced")
+clf.fit(X_train, y_train)
+
+# Валидация
+y_pred = clf.predict(X_val)
+print("Weighted F1:", f1_score(y_val, y_pred, average="weighted"))
+print("\nОтчёт по классам:\n", classification_report(y_val, y_pred))
